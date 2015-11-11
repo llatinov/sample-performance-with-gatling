@@ -11,8 +11,6 @@ object Product {
     .get("/products")
     // Check for this string, if not found result will be KO and test will fail
     .check(regex("Search: "))
-    // Optional means if not found result still be OK
-    .check(regex("NotFound").optional)
   )
 
   private val reqSearchProduct = exec(http("Search product")
@@ -20,6 +18,8 @@ object Product {
     .get("/products?q=${search_term}&action=search-results")
     // Check same search_term is output, capture results number in numberOfProducts session attribute
     .check(regex("Your search for '${search_term}' gave ([\\d]{1,2}) results:").saveAs("numberOfProducts"))
+    // Check "NotFound" is shown on page and try to save it in session, optional means if not found result still be OK
+    .check(regex("NotFound").optional.saveAs("not_found"))
   )
 
   private val reqOpenProduct = exec(session => {

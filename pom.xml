@@ -30,10 +30,10 @@
                     <jvmArgs>
                         <jvmArg>-Durl=http://localhost:9000</jvmArg>
                         <jvmArg>-DnumberOfUsers=10</jvmArg>
-                        <jvmArg>-DnumberOfRepetitions=1</jvmArg>
+                        <jvmArg>-DnumberOfRepetitions=-1</jvmArg>
                         <jvmArg>-DdurationMinutes=1</jvmArg>
                         <jvmArg>-DpauseBetweenRequestsMs=3000</jvmArg>
-                        <jvmArg>-Ddebug=true</jvmArg>
+                        <jvmArg>-Ddebug=false</jvmArg>
                     </jvmArgs>
                 </configuration>
             </plugin>

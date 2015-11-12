@@ -26,4 +26,6 @@ class ProductSimulation extends Simulation {
       // Percentage of success responses should be greater than predefined value
       global.successfulRequests.percent.greaterThan(Constants.responseSuccessPercentage)
     )
+    // Throttling ensures required req/s will be accomplished. Scenario should run forever, numberOfRepetitions=-1
+    .throttle(reachRps(100) in 10.seconds)
 }

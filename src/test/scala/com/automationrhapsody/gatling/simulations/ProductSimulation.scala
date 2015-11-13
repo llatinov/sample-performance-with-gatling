@@ -7,9 +7,12 @@ import scala.concurrent.duration._
 
 class ProductSimulation extends Simulation {
 
+  // Define custom rampup time for this simulation
+  private val rampUpTime: FiniteDuration = 10.seconds
+
   setUp(
     // Ramp up all user for 10 seconds, import scala.concurrent.duration._ is needed
-    Product.scnSearch.inject(rampUsers(Constants.numberOfUsers) over 10.seconds),
+    Product.scnSearch.inject(rampUsers(Constants.numberOfUsers) over rampUpTime),
     // Ramp up all at once
     Product.scnSearchAndOpen.inject(atOnceUsers(Constants.numberOfUsers))
   )
@@ -27,5 +30,6 @@ class ProductSimulation extends Simulation {
       global.successfulRequests.percent.greaterThan(Constants.responseSuccessPercentage)
     )
     // Throttling ensures required req/s will be accomplished. Scenario should run forever, numberOfRepetitions=-1
-    .throttle(reachRps(100) in 10.seconds)
+    // Note: holdFor() is mandatory otherwise PRS doesn't have any limit and increases until system crash
+    .throttle(reachRps(100) in rampUpTime, holdFor(Constants.duration))
 }

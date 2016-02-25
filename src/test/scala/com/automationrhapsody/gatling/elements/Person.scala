@@ -53,7 +53,7 @@ object Person {
     // Make post request
     .post("/person/save")
     // POST body is read from file with variables later replaced with session data by Gatling EL engine
-    .body(ELFileBody("person.json"))
+    .body(ElFileBody("person.json"))
     // Content-Type is needed otherwise REST service fails
     .header("Content-Type", "application/json")
     // Check result id and save it to session

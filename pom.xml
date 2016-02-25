@@ -6,7 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <name>sample-performance-with-gatling</name>
     <properties>
-        <gatling.version>2.0.0</gatling.version>
+        <gatling.version>2.2.0-M2</gatling.version>
     </properties>
     <dependencies>
         <dependency>

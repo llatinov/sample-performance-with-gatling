@@ -12,7 +12,10 @@ class ProductSimulation extends Simulation {
 
   setUp(
     // Ramp up all user for 10 seconds, import scala.concurrent.duration._ is needed
-    Product.scnSearch.inject(rampUsers(Constants.numberOfUsers) over rampUpTime),
+    Product.scnSearch.inject(rampUsers(Constants.numberOfUsers) over rampUpTime)
+    // Throttling ensures required req/s will be accomplished. Scenario should run forever, numberOfRepetitions=-1
+    // Note: holdFor() is mandatory otherwise PRS doesn't have any limit and increases until system crash
+      .throttle(reachRps(100) in rampUpTime, holdFor(Constants.duration)),
     // Ramp up all at once
     Product.scnSearchAndOpen.inject(atOnceUsers(Constants.numberOfUsers))
   )
@@ -29,7 +32,7 @@ class ProductSimulation extends Simulation {
       // Percentage of success responses should be greater than predefined value
       global.successfulRequests.percent.greaterThan(Constants.responseSuccessPercentage)
     )
-    // Throttling ensures required req/s will be accomplished. Scenario should run forever, numberOfRepetitions=-1
-    // Note: holdFor() is mandatory otherwise PRS doesn't have any limit and increases until system crash
-    .throttle(reachRps(100) in rampUpTime, holdFor(Constants.duration))
+  // Throttling can alo be used on setUp level, but is broken in 2.2.0-M2
+  // See: https://github.com/gatling/gatling/issues/2717
+  //.throttle(reachRps(100) in rampUpTime, holdFor(Constants.duration))
 }

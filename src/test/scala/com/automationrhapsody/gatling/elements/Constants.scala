@@ -53,7 +53,7 @@ object Constants {
     // Dump request/response in case of error or in Debug mode
     if (isDebug
       || extraInfo.response.statusCode.get != successStatus
-      || extraInfo.status.eq(Status.valueOf("KO"))) {
+      || extraInfo.status.eq(Status.apply("KO"))) {
       ",URL:" + extraInfo.request.getUrl +
         " Request: " + extraInfo.request.getStringData +
         " Response: " + extraInfo.response.body.string

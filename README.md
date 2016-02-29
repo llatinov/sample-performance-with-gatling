@@ -4,8 +4,8 @@ More details can be found in the original blog post <a href="http://automationrh
 
 ## Run ##
 1. Run RESTful server used for testing. See more details in <a href="http://automationrhapsody.com/build-a-rest-stub-server-with-dropwizard/">Build a RESTful stub server with Dropwizard</a> blog post.
-2. Run one of the simulations with one of the commands
+2. Run one of the simulations with one of the commands ("package" is used in mvn command to copy all resources to "target" folder):
 
-	`mvn gatling:execute -Dgatling.simulationClass=com.automationrhapsody.gatling.simulations.ProductSimulation`
+	`mvn package gatling:execute -Dgatling.simulationClass=com.automationrhapsody.gatling.simulations.ProductSimulation`
 
-	`mvn gatling:execute -Dgatling.simulationClass=com.automationrhapsody.gatling.simulations.PersonSimulation`
+	`mvn package gatling:execute -Dgatling.simulationClass=com.automationrhapsody.gatling.simulations.PersonSimulation` 

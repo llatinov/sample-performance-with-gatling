@@ -54,9 +54,9 @@ object Constants {
     if (isDebug
       || extraInfo.response.statusCode.get != successStatus
       || extraInfo.status.eq(Status.apply("KO"))) {
-      ",URL:" + extraInfo.request.getUrl +
-        " Request: " + extraInfo.request.getStringData +
-        " Response: " + extraInfo.response.body.string
+      ", URL: " + extraInfo.request.getUrl +
+        ", Request: " + extraInfo.request.getStringData +
+        ", Response: " + extraInfo.response.body.string
     } else {
       ""
     }

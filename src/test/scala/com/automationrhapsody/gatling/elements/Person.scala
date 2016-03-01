@@ -55,7 +55,7 @@ object Person {
     // POST body is read from file with variables later replaced with session data by Gatling EL engine
     .body(ElFileBody("person.json"))
     // Content-Type is needed otherwise REST service fails
-    .header("Content-Type", "application/json")
+    .header(HttpHeaderNames.ContentType, HttpHeaderValues.ApplicationJson)
     // Check result id and save it to session
     .check(regex("Person with id=([\\d]{1,6})").saveAs("person_id"))
     .check(regex("\\[").notExists)
@@ -99,15 +99,14 @@ object Person {
       // Note: toString will not work as Stream has toString() method
       "first_name" -> Random.alphanumeric.take(5).mkString,
       "last_name" -> Random.alphanumeric.take(5).mkString,
-      // Get 5 alphanumeric character,  convert to String and concatenate email suffix at the end
+      // Get 5 alphanumeric character, convert to String and concatenate email suffix at the end
       "email" -> Random.alphanumeric.take(5).mkString.concat("@na.na"),
       // Get random unique ID, this allows creation of feeder with important data mixed with dummy data
       "unique_id" -> dataList(Random.nextInt(dataList.size))
     )
   }
 
-  val scnGet = Constants.createScenario("Get all then one", feedSearchTerms,
-    reqGetAll, reqGetPerson)
+  val scnGet = Constants.createScenario("Get all then one", feedSearchTerms, reqGetAll, reqGetPerson)
 
   val scnSaveAndGet = Constants.createScenario("Save and get", feedSearchTerms, reqSavePerson)
     .doIfEqualsOrElse("${action}", added) {
